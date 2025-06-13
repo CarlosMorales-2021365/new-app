@@ -1,12 +1,62 @@
-import { StatusBar } from "react-native-web";
-import { StyleSheet, Text, View } from "react-native";
+import {  StatusBar } from "react-native";
+import { FlatList, StyleSheet, Text, View, Image, Dimensions, Button } from "react-native";
 
-const ProductDetailsScreen = () => {
+const {width, height} = Dimensions.get('window');
+
+const ProductDetailsScreen = ({route, navigation}) => {
+    const { product } = route.params;
     return (
-        <View>
-            <Text>Product Details Screen</Text>
+        <View style={styles.container}>
+            <Image source={{uri:product.image}} style={styles.image}/>
+            <Text style={styles.name}>{product.name}</Text>
+            <Text style={styles.price}>$ {product.price}</Text>
+            <Button
+                    title="add to cart"
+                    onPress={() => navigation.navigate('Cart', {product})}
+                    />
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+    },
+    image: {
+        width: width*0.9,
+        height: width*0.5,
+       // borderRadius: 50,
+        marginBottom: 10,
+        borderWidth: 1,
+        borderColor: '#ddd',
+        padding: 10,
+        marginBottom: 10, 
+        backgroundColor: '#fff',  
+        shadowColor: '#000',   
+        shadowOffset: {width: 0, height: 2,},  
+        shadowOpacity: 0.2,
+        borderRadius: 20
+    },
+    text: {
+        fontSize: 18,
+        color: '#000',
+        marginBottom: 10,
+        textAlign: 'center',
+    },
+    name: {
+        fontSize: 20,
+        color: '#000',
+        marginBottom: 10,
+        textAlign: 'center',
+    },
+    price: {
+        fontSize: 20,
+        color: '#000',
+        marginBottom: 10,
+        textAlign: 'center',
+    },
+})
 
 export default ProductDetailsScreen;
